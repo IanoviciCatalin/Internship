@@ -1,0 +1,23 @@
+﻿CREATE OR REPLACE VIEW public.bole_view AS
+SELECT
+    id,
+    typ,
+    plant,
+    TO_DATE(NULLIF(created,''),'DD.MM.YYYY') AS created,
+    NULLIF(notifctn,'')::NUMERIC AS notifctn,
+    notificstatus,
+    referenceno,
+    notification,
+    material,
+    batch,
+    description,
+    NULLIF(customer,'')::NUMERIC AS customer,
+    vendor,
+    TO_DATE(NULLIF(reqstart,''),'DD.MM.YYYY') AS reqstart,
+    TO_DATE(NULLIF(reqend,''),'DD.MM.YYYY') AS reqend,
+    NULLIF(refqty,'')::NUMERIC AS refqty,
+    NULLIF(compltqty,'')::NUMERIC AS compltqty,
+    NULLIF(qtyint,'')::NUMERIC AS qtyint,
+    NULLIF(qtyext,'')::NUMERIC AS qtyext,
+    NULLIF(returndelvryqty,'')::NUMERIC AS returndelvryqty
+FROM public.bole;

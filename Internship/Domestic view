@@ -1,0 +1,299 @@
+﻿CREATE OR REPLACE VIEW public.domestic AS
+
+-- CAF
+SELECT
+    id,
+    controlstandardpricescrapvalue,
+    TO_DATE(NULLIF(postgdate, ''),'DD.MM.YYYY') AS postgdate,
+    plnt,
+    TO_DATE(NULLIF(createdon, ''),'DD.MM.YYYY') AS createdon,
+    enteredby,
+    NULLIF(workctr,'')::NUMERIC AS workctr,
+    mrp,
+    mrpc,
+    prods,
+    type,
+    NULLIF("order",'')::NUMERIC AS order_number,
+    material,
+    NULLIF(qty_scrap,'')::NUMERIC AS qty_scrap,
+    NULLIF(cause,'')::NUMERIC AS cause_code,
+    description,
+    enteredby_1,
+    NULLIF(confscrapval,'')::NUMERIC AS confscrapval,
+    valcurr,
+    NULLIF(valeuro,'')::NUMERIC AS valeuro,
+    NULLIF(valuescrappc,'')::NUMERIC AS valuescrappc,
+    NULLIF(standardprice,'')::NUMERIC AS standardprice,
+    TO_DATE(NULLIF(entered,''),'DD.MM.YYYY') AS entered,
+    'CAF'::TEXT AS source_table
+FROM caf
+
+UNION ALL
+
+-- CB
+SELECT
+    NULL AS id,
+    controlstandardpricescrapvalue,
+    TO_DATE(NULLIF(postgdate,''),'DD.MM.YYYY'),
+    plnt,
+    TO_DATE(NULLIF(createdon,''),'DD.MM.YYYY'),
+    enteredby,
+    NULLIF(workctr,'')::NUMERIC,
+    mrp,
+    mrpc,
+    prods,
+    type,
+    NULLIF("order",'')::NUMERIC AS order_number,
+    material,
+    NULLIF(qty_scrap,'')::NUMERIC,
+    NULLIF(cause,'')::NUMERIC AS cause_code,
+    description,
+    enteredby_1,
+    NULLIF(confscrapval,'')::NUMERIC,
+    valcurr,
+    NULLIF(valeuro,'')::NUMERIC,
+    NULLIF(valuescrappc,'')::NUMERIC,
+    NULLIF(standardprice,'')::NUMERIC AS standardprice,
+    TO_DATE(NULLIF(entered,''),'DD.MM.YYYY'),
+    'CB'::TEXT
+FROM cb
+
+UNION ALL
+
+-- Cottura1
+SELECT
+    id,
+    controlstandardpricescrapvalue,
+    TO_DATE(NULLIF(datăînreg,''),'DD.MM.YYYY') AS postgdate,
+    unlg AS plnt,
+    TO_DATE(NULLIF(datăînreg,''),'DD.MM.YYYY') AS createdon,
+    introdusde AS enteredby,
+    NULLIF(postlcru,'')::NUMERIC AS workctr,
+    pnm AS mrp,
+    cpnm AS mrpc,
+    NULL::TEXT AS prods,
+    tip AS type,
+    NULLIF("comandă",'')::NUMERIC AS order_number,
+    material,
+    NULLIF(qty_scrap,'')::NUMERIC,
+    NULLIF(cauză,'')::NUMERIC AS cause_code,
+    descriere AS description,
+    introdusde_1 AS enteredby_1,
+    NULLIF(confscrapval,'')::NUMERIC AS confscrapval,
+    valcurr,
+    NULL::NUMERIC AS valeuro,
+    NULL::NUMERIC AS valuescrappc,
+    NULLIF(preţstandard,'')::NUMERIC AS standardprice,
+    TO_DATE(NULLIF(introdus,''),'DD.MM.YYYY') AS entered,
+    'Cottura1'::TEXT
+FROM cottura1
+
+UNION ALL
+
+-- DB1
+SELECT
+    id,
+    NULL AS controlstandardpricescrapvalue,
+    TO_DATE(NULLIF(datăînreg,''),'DD.MM.YYYY') AS postgdate,
+    unlg AS plnt,
+    TO_DATE(NULLIF(datăînreg,''),'DD.MM.YYYY') AS createdon,
+    NULL::TEXT AS enteredby,
+    NULLIF(postlcru,'')::NUMERIC AS workctr,
+    pnm AS mrp,
+    NULL::TEXT AS mrpc,
+    NULL::TEXT AS prods,
+    tip AS type,
+    NULLIF("comandă",'')::NUMERIC AS order_number,
+    material,
+    NULLIF(scrapquantity,'')::NUMERIC AS qty_scrap,
+    NULLIF(cauză,'')::NUMERIC AS cause_code,
+    descriere AS description,
+    NULL::TEXT AS enteredby_1,
+    NULLIF(confscrapval,'')::NUMERIC AS confscrapval,
+    valcurr,
+    NULL::NUMERIC AS valeuro,
+    NULL::NUMERIC AS valuescrappc,
+    NULLIF(prezzostandard,'')::NUMERIC AS standardprice,
+    TO_DATE(NULLIF(introdus,''),'DD.MM.YYYY') AS entered,
+    'DB1'::TEXT
+FROM db1
+
+UNION ALL
+
+-- LAV
+SELECT
+    id,
+    controlstandardpricescrapvalue,
+    TO_DATE(NULLIF(postgdate,''),'DD.MM.YYYY') AS postgdate,
+    plnt,
+    TO_DATE(NULLIF(createdon,''),'DD.MM.YYYY') AS createdon,
+    enteredby,
+    NULLIF(workctr,'')::NUMERIC AS workctr,
+    mrp,
+    mrpc,
+    prods,
+    type,
+    NULLIF("order",'')::NUMERIC AS order_number,
+    material,
+    NULLIF(qty_scrap,'')::NUMERIC AS qty_scrap,
+    NULLIF(cause,'')::NUMERIC AS cause_code,
+    description,
+    enteredby_1,
+    NULLIF(confscrapval,'')::NUMERIC AS confscrapval,
+    valcurr,
+    NULLIF(valeuro,'')::NUMERIC AS valeuro,
+    NULLIF(valuescrappc,'')::NUMERIC AS valuescrappc,
+    NULLIF(standardprice,'')::NUMERIC AS standardprice,
+    TO_DATE(NULLIF(entered,''),'DD.MM.YYYY') AS entered,
+    'LAV'::TEXT
+FROM lav
+
+UNION ALL
+
+-- NPL
+SELECT
+    id,
+    controlstandardpricescrapvalue,
+    TO_DATE(NULLIF(postgdate,''),'DD.MM.YYYY') AS postgdate,
+    plnt,
+    TO_DATE(NULLIF(createdon,''),'DD.MM.YYYY') AS createdon,
+    enteredby,
+    NULLIF(workctr,'')::NUMERIC AS workctr,
+    mrp,
+    mrpc,
+    prods,
+    type,
+    NULLIF("order",'')::NUMERIC AS order_number,
+    material,
+    NULLIF(qty_scrap,'')::NUMERIC AS qty_scrap,
+    NULLIF(cause,'')::NUMERIC AS cause_code,
+    description,
+    enteredby_1,
+    NULLIF(confscrapval,'')::NUMERIC AS confscrapval,
+    valcurr,
+    NULLIF(valeuro,'')::NUMERIC AS valeuro,
+    NULLIF(valuescrappc,'')::NUMERIC AS valuescrappc,
+    NULLIF(standardprice,'')::NUMERIC AS standardprice,
+    TO_DATE(NULLIF(entered,''),'DD.MM.YYYY') AS entered,
+    'NPL'::TEXT
+FROM npl
+
+UNION ALL
+
+-- Presso
+SELECT
+    id,
+    NULL AS controlstandardpricescrapvalue,
+    TO_DATE(NULLIF(datăînreg,''),'DD.MM.YYYY') AS postgdate,
+    unlg AS plnt,
+    TO_DATE(NULLIF(datăînreg,''),'DD.MM.YYYY') AS createdon,
+    introdusde AS enteredby,
+    NULLIF(postlcru,'')::NUMERIC AS workctr,
+    NULL::TEXT AS mrp,
+    NULL::TEXT AS mrpc,
+    NULL::TEXT AS prods,
+    null::text AS type,
+    NULLIF("comandă",'')::NUMERIC AS order_number,
+    material,
+    NULLIF(cantitaterebut,'')::NUMERIC AS qty_scrap,
+    NULLIF(cauză,'')::NUMERIC AS cause_code,
+    descriere AS description,
+    introdusde AS enteredby_1,
+    NULL::NUMERIC AS confscrapval,
+    NULL::TEXT AS valcurr,
+    NULL::NUMERIC AS valeuro,
+    NULL::NUMERIC AS valuescrappc,
+    NULL::NUMERIC AS standardprice,
+    TO_DATE(NULLIF(introdus,''),'DD.MM.YYYY') AS entered,
+    'Presso'::TEXT
+FROM presso
+
+UNION ALL
+
+-- RD1
+SELECT
+    id,
+    controlstandardpricescrapvalue,
+    TO_DATE(NULLIF(datăînreg,''),'DD.MM.YYYY') AS postgdate,
+    unlg AS plnt,
+    TO_DATE(NULLIF(datăînreg,''),'DD.MM.YYYY') AS createdon,
+    introdusde AS enteredby,
+    NULLIF(postlcru,'')::NUMERIC AS workctr,
+    pnm as mrp,
+    cpnm as mrpc,
+    cdăpr as prods,
+    tip AS type,
+    NULLIF("comandă",'')::NUMERIC AS order_number,
+    material,
+    NULLIF(qty_scrap,'')::NUMERIC AS qty_scrap,
+    NULLIF(cauză,'')::NUMERIC AS cause_code,
+    descriere AS description,
+    introdusde_1 AS enteredby_1,
+    NULLIF(confscrapval,'')::NUMERIC AS confscrapval,
+    valcurr,
+    null AS valeuro,
+    NULLIF(confscrapval_1,'')::NUMERIC AS valuescrappc,
+    NULLIF(preţstandard,'')::NUMERIC AS standardprice,
+    TO_DATE(NULLIF(introdus,''),'DD.MM.YYYY') AS entered,
+    'RD1'::TEXT
+FROM rd1
+
+UNION ALL
+
+-- RDCB
+SELECT
+    NULL AS id,
+    controlstandardpricescrapvalue,
+    TO_DATE(NULLIF(postgdate,''),'DD.MM.YYYY') AS postgdate,
+    plnt,
+    TO_DATE(NULLIF(createdon,''),'DD.MM.YYYY') AS createdon,
+    enteredby,
+    NULLIF(workctr,'')::NUMERIC AS workctr,
+    mrp,
+    mrpc,
+    prods,
+    type,
+    NULLIF("order",'')::NUMERIC AS order_number,
+    material,
+    NULLIF(qty_scrap,'')::NUMERIC AS qty_scrap,
+    NULLIF(cause,'')::NUMERIC AS cause_code,
+    description,
+    enteredby_1,
+    NULLIF(confscrapval,'')::NUMERIC AS confscrapval,
+    valcurr,
+    NULL AS valeuro,
+    NULLIF(valuescrappc,'')::NUMERIC AS valuescrappc,
+    NULLIF(standardprice,'')::NUMERIC AS standardprice,
+    TO_DATE(NULLIF(entered,''),'DD.MM.YYYY') AS entered,
+    'RDCB'::TEXT
+FROM rdcb
+
+UNION ALL
+
+-- TB&OV&PS
+SELECT
+    NULL AS id,
+    NULL AS controlstandardpricescrapvalue,
+    TO_DATE(NULLIF(datăînreg,''),'DD.MM.YYYY') AS postgdate,
+    NULL::TEXT AS plnt,
+    TO_DATE(NULLIF(datăînreg,''),'DD.MM.YYYY') AS createdon,
+    introdusde AS enteredby,
+    postlcru::NUMERIC AS workctr,
+    pnm::TEXT AS mrp,
+    NULL::TEXT AS mrpc,
+    NULL::TEXT AS prods,
+    tip AS type,
+    NULLIF("comandă",'')::NUMERIC AS order_number,
+    material,
+    NULLIF(scrapquantity,'')::NUMERIC AS qty_scrap,
+    NULLIF(cauză,'')::NUMERIC AS cause_code,
+    descriere AS description,
+    introdusde AS enteredby_1,
+    NULL::NUMERIC AS confscrapval,
+    NULL::TEXT AS valcurr,
+    NULL::NUMERIC AS valeuro,
+    NULL::NUMERIC AS valuescrappc,
+    NULL::NUMERIC AS standardprice,
+    TO_DATE(NULLIF(introdus,''),'DD.MM.YYYY') AS entered,
+    'TB&OV&PS'::TEXT
+FROM "TB&OV&PS";

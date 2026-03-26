@@ -1,0 +1,46 @@
+﻿CREATE OR REPLACE VIEW public.productie_view AS
+WITH totals AS (
+    SELECT
+        SUM(NULLIF(confirmedscrap,'')::NUMERIC) AS total_scrap,
+        SUM(NULLIF(orderquantity,'')::NUMERIC) AS total_order_quantity
+    FROM productie
+    WHERE NULLIF(orderquantity,'')::NUMERIC > 0
+)
+SELECT
+    plant,
+    materialnumber AS material_number,
+    NULLIF("order",'')::NUMERIC AS order_number,
+    mrpgroup AS mrp_group,
+    ordertype AS order_type,
+    prodnsupervisor AS production_supervisor,
+    NULLIF(orderquantity,'')::NUMERIC AS order_quantity,
+    NULLIF(deliveredquantity,'')::NUMERIC AS delivered_quantity,
+    NULLIF(confirmedscrap,'')::NUMERIC AS confirmed_scrap,
+    NULLIF(expectedvariance,'')::NUMERIC AS expected_variance,
+    TO_DATE(NULLIF(releasedate,''),'DD.MM.YYYY') AS release_date,
+    TO_DATE(NULLIF(scheduledfinishdate,''),'DD.MM.YYYY') AS scheduled_finish_date,
+    systemstatus AS system_status,
+    TO_DATE(NULLIF(changedate,''),'DD.MM.YYYY') AS change_date,
+    materialtype AS material_type,
+    -- coloane calculate
+    (NULLIF(orderquantity,'')::NUMERIC 
+      - NULLIF(deliveredquantity,'')::NUMERIC 
+      - NULLIF(confirmedscrap,'')::NUMERIC) AS remaining_quantity,
+    CASE
+        WHEN TO_DATE(NULLIF(scheduledfinishdate,''),'DD.MM.YYYY') < CURRENT_DATE
+         AND (NULLIF(orderquantity,'')::NUMERIC 
+              - NULLIF(deliveredquantity,'')::NUMERIC 
+              - NULLIF(confirmedscrap,'')::NUMERIC) > 0
+        THEN 'Overdue'
+        ELSE 'On Track'
+    END AS order_status,
+    CASE
+        WHEN NULLIF(orderquantity,'')::NUMERIC = 0 THEN 0
+        ELSE NULLIF(confirmedscrap,'')::NUMERIC / NULLIF(orderquantity,'')::NUMERIC
+    END AS scrap_ratio,
+    CASE
+        WHEN t.total_order_quantity = 0 THEN 0
+        ELSE t.total_scrap / t.total_order_quantity
+    END AS global_scrap_ratio
+FROM productie p
+CROSS JOIN totals t;
